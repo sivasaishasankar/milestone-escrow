@@ -3,25 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #fdfaf3;
+  --foreground: #2a2419;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, Cambria, "Times New Roman", serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.paper-panel {
+  background-color: #fdfaf3;
+  background-image: repeating-radial-gradient(
+    circle at 20% 15%,
+    transparent 0,
+    transparent 26px,
+    rgba(107, 93, 64, 0.06) 27px
+  );
+  border: 1px solid #e2cd9c;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 8px 24px -12px rgba(42, 36, 25, 0.25);
 }
