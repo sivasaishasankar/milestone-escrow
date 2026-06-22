@@ -25,10 +25,10 @@ export default function Home() {
           <WalletButton />
         </header>
 
-        <nav className="flex gap-2 border-b border-ink-500/20 pb-2">
+        <nav className="flex flex-wrap gap-2 border-b border-ink-500/20 pb-2">
           <button
             onClick={() => setView("view")}
-            className={`rounded-full px-4 py-1.5 text-sm font-semibold ${
+            className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold sm:px-4 sm:text-sm ${
               view === "view"
                 ? "bg-ink-900 text-parchment-50"
                 : "text-ink-700 hover:bg-parchment-100"
@@ -38,7 +38,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => setView("create")}
-            className={`rounded-full px-4 py-1.5 text-sm font-semibold ${
+            className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold sm:px-4 sm:text-sm ${
               view === "create"
                 ? "bg-ink-900 text-parchment-50"
                 : "text-ink-700 hover:bg-parchment-100"
