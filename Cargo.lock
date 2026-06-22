@@ -1807,6 +1807,7 @@ dependencies = [
 name = "waypoint-escrow"
 version = "0.1.0"
 dependencies = [
+ "ed25519-dalek",
  "soroban-sdk",
  "waypoint-arbiter",
  "waypoint-shared",
