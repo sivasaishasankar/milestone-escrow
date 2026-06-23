@@ -144,8 +144,15 @@ async function invokeAsWallet(
         },
       };
     }
+    // Anything else (e.g. a contract trap from malformed arguments) is a real
+    // failure but not specifically an authorization problem -- labeling it
+    // "not-authorized" would be misleading, so surface the raw simulation
+    // error under the same UI slot without claiming a cause we can't confirm.
     return {
-      error: { kind: "not-authorized", message: sim.error },
+      error: {
+        kind: "not-authorized",
+        message: `Transaction simulation failed: ${sim.error}`,
+      },
     };
   }
 
@@ -195,7 +202,13 @@ export async function createEscrow(
     nativeToScVal(Address.fromString(walletAddress)),
     nativeToScVal(Address.fromString(recipient)),
     nativeToScVal(Address.fromString(ARBITER_CONTRACT_ADDRESS)),
-    nativeToScVal(milestoneAmounts),
+    // nativeToScVal picks "the smallest XDR type that fits the value" when no
+    // `type` is given, so plain amounts like 10_000_000 would silently encode
+    // as u32/u64 instead of the i128 the contract's `Vec<i128>` parameter
+    // requires -- causing a wasm trap (UnreachableCodeReached) inside
+    // create_escrow when it tries to decode the mismatched vector. Every
+    // element must be forced to i128 explicitly.
+    nativeToScVal(milestoneAmounts, { type: "i128" }),
   ];
   const res = await invokeAsWallet(ESCROW_CONTRACT_ADDRESS, "create_escrow", args, walletAddress);
   if ("error" in res) return res;
