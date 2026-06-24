@@ -127,7 +127,11 @@ async function invokeAsWallet(
 
   const sim = await server.simulateTransaction(tx);
   if (rpc.Api.isSimulationError(sim)) {
-    if (/insufficient|balance|underfund/i.test(sim.error)) {
+    // "account entry is missing" is the SAC's failure mode for an account
+    // that has never been funded at all (as opposed to one that exists but
+    // can't cover this specific transfer, which says "balance"/"insufficient")
+    // -- both mean the funder can't pay, so both map to the same error state.
+    if (/insufficient|balance|underfund|account entry is missing/i.test(sim.error)) {
       return {
         error: {
           kind: "insufficient-balance",
