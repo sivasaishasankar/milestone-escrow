@@ -6,6 +6,8 @@ designated arbiter resolves it rather than the funds being stuck or auto-release
 
 Built for the Stellar dApp Challenge, Level 3, on Soroban + Next.js.
 
+**Live Demo**: [https://milestone-escrow.ferry-stray-lunacy.workers.dev/](https://milestone-escrow.ferry-stray-lunacy.workers.dev/)
+
 ## 1. Project Description
 
 Waypoint is a three-contract escrow system for staged projects:
