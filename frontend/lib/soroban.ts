@@ -31,6 +31,32 @@ const READ_ONLY_SIMULATION_ACCOUNT = Keypair.fromRawEd25519Seed(
   Buffer.alloc(32, 0),
 ).publicKey();
 
+/**
+ * Soroban's raw simulation error text never includes the contract error
+ * enum's *name* -- only a numeric code, e.g. "Error(Contract, #1)" -- so a
+ * name-based regex (matching for "NotAuthorized", "NotCreator", etc.) can
+ * never actually match a real contract error and silently falls through to
+ * a generic message even when the failure genuinely is an auth problem.
+ * These tables mirror the #[contracterror] enums in the Rust source and are
+ * looked up by (originating contract address, numeric code) instead.
+ */
+const ESCROW_AUTH_ERROR_CODES = new Set([10]); // NotAuthorized
+const ARBITER_AUTH_ERROR_CODES = new Set([1, 2]); // NotCreator, NotDesignatedArbiter
+
+function classifyContractError(rawError: string): AppError["kind"] | null {
+  const match = rawError.match(/contract:(C[A-Z2-7]{55}),\s*topics:\[error, Error\(Contract, #(\d+)\)\]/);
+  if (!match) return null;
+  const [, contractAddress, codeStr] = match;
+  const code = Number(codeStr);
+  if (contractAddress === ESCROW_CONTRACT_ADDRESS && ESCROW_AUTH_ERROR_CODES.has(code)) {
+    return "not-authorized";
+  }
+  if (contractAddress === ARBITER_CONTRACT_ADDRESS && ARBITER_AUTH_ERROR_CODES.has(code)) {
+    return "not-authorized";
+  }
+  return null;
+}
+
 function parseMilestoneStatus(raw: unknown): MilestoneStatus {
   // A unit contracttype enum variant decodes via scValToNative as a bare
   // string tag ("Locked"), a one-element array (["Locked"]), or in some SDK
@@ -139,7 +165,7 @@ async function invokeAsWallet(
         },
       };
     }
-    if (/NotAuthorized|NotCreator|NotDesignatedArbiter|auth/i.test(sim.error)) {
+    if (classifyContractError(sim.error) === "not-authorized") {
       return {
         error: {
           kind: "not-authorized",
