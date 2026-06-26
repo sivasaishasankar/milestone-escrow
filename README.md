@@ -6,7 +6,15 @@ designated arbiter resolves it rather than the funds being stuck or auto-release
 
 Built for the Stellar dApp Challenge, Level 3, on Soroban + Next.js.
 
-**Live Demo**: [https://milestone-escrow.ferry-stray-lunacy.workers.dev/](https://milestone-escrow.ferry-stray-lunacy.workers.dev/)
+<p align="center">
+  <img src="screenshots/demo.gif" alt="Waypoint Milestone Escrow Demo" width="800" />
+</p>
+
+<p align="center">
+  <a href="https://milestone-escrow.ferry-stray-lunacy.workers.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/Launch%20Live%20Demo-Pine%20Green-2D5A27?style=for-the-badge" alt="Launch Live Demo" />
+  </a>
+</p>
 
 ## 1. Project Description
 
