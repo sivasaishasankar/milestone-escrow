@@ -207,10 +207,10 @@ Reproduce with `cargo test --workspace`.
 `.github/workflows/ci.yml` defines two jobs: `contracts` (`cargo test --workspace`, then a
 `wasm32v1-none` release build of each contract) and `frontend` (`npm run lint`, `npm run build`).
 
-**PENDING** — a green Actions run screenshot: this repository was built locally in this session
-and has not yet been pushed to a GitHub remote, so no Actions run has executed yet. Push to
-GitHub and the workflow will run automatically on the first push to `main`; a screenshot of that
-green run should replace this note.
+Below is the screenshot showing the green GitHub Actions run:
+
+![GitHub Actions CI/CD Pipeline](./screenshots/ci-cd.png)
+
 
 ## 10. Screenshots
 
@@ -224,6 +224,8 @@ static serve) against the live testnet contracts above — no mocked data.
 | Funded state, stepper mid-progress (real escrow #0, 1/3 XLM released) | ![Mid-progress](./screenshots/03-funded-stepper-midprogress.png) |
 | Dispute flow, fully resolved (real escrow #1, disputed then released) | ![Dispute resolved](./screenshots/04-dispute-flow-resolved.png) |
 | Mobile view, vertical trail (375px) | ![Mobile](./screenshots/05-mobile-vertical-stepper.png) |
+| CI/CD Pipeline passing | ![CI/CD](./screenshots/ci-cd.png) |
+
 
 **PENDING** — a "wallet connected" screenshot: this build environment doesn't have the Freighter
 browser extension installed, so the connect flow couldn't be exercised against a real extension
@@ -233,11 +235,8 @@ requires a browser with Freighter installed and a funded testnet account.
 
 ## 11. Live Demo Link
 
-**PENDING** — no Cloudflare Workers deployment has been performed in this session (that requires
-a Cloudflare account and dashboard access this environment doesn't have). `wrangler.toml` is
-configured per Section 8 of the build spec; running `wrangler deploy` from a machine with
-Cloudflare credentials, after setting the `NEXT_PUBLIC_*` env vars in the dashboard, will produce
-a live URL to place here.
+The live deployment is available at: [https://milestone-escrow.ferry-stray-lunacy.workers.dev/](https://milestone-escrow.ferry-stray-lunacy.workers.dev/)
+
 
 ## 12. Demo Video
 
@@ -278,10 +277,8 @@ evidence; a 1–2 minute walkthrough recording should be added before final subm
   the milestone `Disputed` with funds locked in escrow, exactly as the spec requires ("no fake
   refund path unless you also implement one"). A real refund path (e.g. returning funds to the
   creator) was out of scope for this build.
-- **GitHub Actions has not run yet** — no green CI screenshot (Section 9) until this repo is
-  pushed to a GitHub remote.
-- **No live Cloudflare deployment** — no live demo URL (Section 11) until `wrangler deploy` is
-  run with real Cloudflare credentials.
+- **GitHub Actions run succeeded** — green CI screenshot included (Section 9).
+- **Live Cloudflare deployment** — live demo URL included (Section 11).
 - **No demo video** — this environment has no screen-recording capability (Section 12).
 - **No "wallet connected" screenshot** — this environment has no Freighter browser extension
   installed (Section 10).
