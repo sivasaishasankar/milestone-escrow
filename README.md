@@ -1,4 +1,6 @@
 # Waypoint — Milestone Escrow
+[![Waypoint Milestone Escrow CI](https://github.com/sivasaishasankar/milestone-escrow/actions/workflows/ci.yml/badge.svg)](https://github.com/sivasaishasankar/milestone-escrow/actions/workflows/ci.yml)
+
 
 A creator locks funds for a project in stages. Instead of releasing everything at once, funds
 unlock **milestone by milestone** as each stage is approved. If a milestone is disputed, a
